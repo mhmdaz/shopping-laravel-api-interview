@@ -9,7 +9,20 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/users",
+     *     tags={"Users"},
+     *     summary="Get list of users",
+     *     description="Returns list of users",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Users listed successfully"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     )
+     * )
      */
     public function index()
     {
@@ -23,7 +36,34 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/users",
+     *     tags={"Users"},
+     *     summary="Create a new user",
+     *     description="Create a new user in the system",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"name","email"},
+     *             @OA\Property(property="name", type="string", example="John Doe"),
+     *             @OA\Property(property="email", type="string", example="john@example.com"),
+     *             @OA\Property(property="password", type="string", example="password"),
+     *             @OA\Property(property="role", type="string", example="manager")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User created successfully"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable Entity"
+     *     )
+     * )
      */
     public function store(UserFormRequest $request)
     {
@@ -40,7 +80,24 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/users/{user}",
+     *     tags={"Users"},
+     *     summary="Get user of given id",
+     *     description="Returns user of given id",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Users fetched successfully"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Resource Not Found"
+     *     )
+     * )
      */
     public function show(User $user)
     {
@@ -54,7 +111,38 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/api/users/{user}",
+     *     tags={"Users"},
+     *     summary="Update selected user",
+     *     description="Update selected user with given details",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"name","email"},
+     *             @OA\Property(property="name", type="string", example="John Doe"),
+     *             @OA\Property(property="email", type="string", example="john@example.com"),
+     *             @OA\Property(property="password", type="string", example="password"),
+     *             @OA\Property(property="role", type="string", example="manager")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User updated successfully"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Resource Not Found"
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable Entity"
+     *     )
+     * )
      */
     public function update(UserFormRequest $request, User $user)
     {
@@ -71,7 +159,24 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/api/users/{user}",
+     *     tags={"Users"},
+     *     summary="Delete user of given id",
+     *     description="Delete user of given id",
+     *     @OA\Response(
+     *         response=200,
+     *         description="User deleted successfully"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Resource Not Found"
+     *     )
+     * )
      */
     public function destroy(User $user)
     {
