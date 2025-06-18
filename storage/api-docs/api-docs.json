@@ -5,6 +5,55 @@
         "version": "0.1"
     },
     "paths": {
+        "/api/tokens/create": {
+            "post": {
+                "tags": [
+                    "Tokens"
+                ],
+                "summary": "Assign new tokens to users",
+                "description": "Assign new tokens to users",
+                "operationId": "664c52b4ee6234e6d7a0eacf60e5b62a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "john@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "token_name": {
+                                        "type": "string",
+                                        "example": "some_random_token_name"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token assigned successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                }
+            }
+        },
         "/api/users": {
             "get": {
                 "tags": [
@@ -170,6 +219,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Tokens",
+            "description": "Tokens"
+        },
         {
             "name": "Users",
             "description": "Users"
